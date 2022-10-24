@@ -8,17 +8,6 @@
   box-sizing: border-box;
 }
 
-.view-highscores {
-  margin-left: -60px;
-  margin-top: -20px;
-  float: left;
-  border: none;
-  height: 50px;
-  color: black;
-  font-size: large;
-  background: aliceblue;
-  text-decoration: underline;
-}
 
 .timer-count {
   float: right;
@@ -56,7 +45,17 @@ button {
   margin-top: 0.6em;
 }
 
-
+.view-highscores {
+    margin-left: -60px;
+    margin-top: -20px;
+    float: left;
+    border: none;
+    height: 50px;
+    color: black;
+    font-size: large;
+    background: aliceblue;
+    text-decoration: underline;
+  }
 
 header {
   /* display: flex;
