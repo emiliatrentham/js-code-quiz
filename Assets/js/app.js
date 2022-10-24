@@ -22,79 +22,79 @@ var questionList = [
   {
     questionText: " How can you detect the client's browser name?",
     answers: {
-      a: "client.navName",
-      b: "navigator.appName",
-      c: "browser.name",
+      a: "a: client.navName",
+      b: "b: navigator.appName",
+      c: "c: browser.name",
     },
-    correctAnswer: "navigator.appName",
+    correctAnswer: "b: navigator.appName",
   },
   {
     questionText:
       "How do you find the number with the highest value of x and y?",
     answers: {
-      a: "Math.ceil(x ,y)",
-      b: "ceil(x, y)",
-      c: "Math.max(x, y)",
+      a: "a: Math.ceil(x ,y)",
+      b: "b: ceil(x, y)",
+      c: "c: Math.max(x, y)",
     },
-    correctAnswer: "Math.max(x, y)",
+    correctAnswer: "c: Math.max(x, y)",
   },
   {
     questionText: "How does a WHILE loop start?",
     answers: {
-      a: "while (i <= 10)",
-      b: "while i = 1 to 10",
-      c: "while (i <= 10; i++)",
+      a: "a: while (i <= 10)",
+      b: "b: while i = 1 to 10",
+      c: "c: while (i <= 10; i++)",
     },
-    correctAnswer: "while (i <= 10)",
+    correctAnswer: "a: while (i <= 10)",
   },
   {
     questionText: "How do you write 'Hello World' in an alert box?",
     answers: {
-      a: "alertBox('Hello World');",
-      b: "msg('Hello World')",
-      c: 'alert("Hello World")',
+      a: "a: alertBox('Hello World');",
+      b: "b: msg('Hello World')",
+      c: 'c: alert("Hello World")',
     },
-    correctAnswer: 'alert("Hello World")',
+    correctAnswer: 'c: alert("Hello World")',
   },
   {
     questionText: "The external JavaScript file must contain the <script> tag.",
     answers: {
-      a: "True",
-      b: "False",
+      a: "a: True",
+      b: "b: False",
     },
-    correctAnswer: "False",
+    correctAnswer: "b: False",
   },
   {
     questionText: "Where is the correct place to insert a JavaScript?",
     answers: {
-      a: "The <body> section",
-      b: "Both the <head> and the <body> section are correct",
-      c: "The <head> section",
+      a: "a: The <body> section",
+      b: "b: Both the <head> and the <body> section are correct",
+      c: "c: The <head> section",
     },
-    correctAnswer: "Both the <head> and the <body> section are correct",
+    correctAnswer: "b: Both the <head> and the <body> section are correct",
   },
   {
     questionText:
       "What is the correct syntax for referring to an external script called 'xxx.js'?",
     answers: {
-      a: '<script src="xxx.js">',
-      b: '<script href="xxx.js">',
-      c: '<script name="xxx.js">',
+      a: 'a: <script src="xxx.js">',
+      b: 'b: <script href="xxx.js">',
+      c: 'c: <script name="xxx.js">',
     },
-    correctAnswer: '<script src="xxx.js">',
+    correctAnswer: 'a: <script src="xxx.js">',
   },
   {
     questionText: "What event occurs when the user clicks on an HTML element?",
     answers: {
-      a: "onmouseover",
-      b: "onmouseclick ",
-      c: "onclick",
+      a: "a: onmouseover",
+      b: "b: onmouseclick ",
+      c: "c: onclick",
     },
-    correctAnswer: "onclick",
+    correctAnswer: "c: onclick",
   },
 ];
 
-// The init function is called when the page loads ?!
+// The init function is called when the page loads 
 function init() {
   getCorrectAnswer();
   getIncorrectAnswer();
@@ -181,7 +181,7 @@ function handleAnswerSelected(ev) {
 }
 answersListEl.addEventListener("click", handleAnswerSelected);
 
-// Event: Quiz ends
+// Event: Quiz ends 
 function handleGameEnds(didCorrect) {
   clearInterval(timer);
   timer = null;
