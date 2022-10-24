@@ -16,7 +16,7 @@ A timed quiz on JavaScript fundamentals that stores high scores. Built with Java
 
 
 ## Photos
-![The code quiz webpage includes a title, multiple answer questions, and a start button that jumpstarts the application.](./Assets/project-screenshot.png)
+![The code quiz webpage includes a timer, a start button that jumpstarts the application, and multiple answer questions.](./Assets/project-screenshot.png)
 
 ## Credits
 <a href="https://www.w3schools.com/quiztest/quiztest.asp?qtest=JS">Quiz questions</a>
@@ -24,8 +24,8 @@ A timed quiz on JavaScript fundamentals that stores high scores. Built with Java
 ## License
 Please refer to the LICENSE in the repo.
 
-## Deployed Page
-<a href="https://emiliatrentham.github.io/JS-password-generator/">Deployed Application Link</a>
+<!-- ## Deployed Page
+<a href="https://emiliatrentham.github.io/JS-password-generator/">Deployed Application Link</a> -->
 
 ## Contact
 <a href="https://www.linkedin.com/in/emilia-trentham-987a59164/" >LinkedIn: Emilia Trentham</a>

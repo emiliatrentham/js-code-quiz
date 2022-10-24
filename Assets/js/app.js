@@ -1,11 +1,7 @@
 // Declare variables: DOM hooks
-// In the JavaScript, create variables for each of the DOM elements that will dispaly feedback
-// Create variables for the elements that will receive input
-// Set each variable to its DOM element
-
 var correctEl = document.querySelector(".scoreboard_score_value--correct");
 var incorrectEl = document.querySelector(".scoreboard_score_value--incorrect");
-var timerEl = document.querySelector("quizboard_timer");
+var timerElement = document.querySelector(".timer-count");
 var startQuizButtonEl = document.querySelector(".controls_start");
 var quizResultsEl = document.querySelector(".quizboard_result");
 var quizDisplayEl = document.querySelector(".quizboard_display");
@@ -14,22 +10,14 @@ var questionTextEl = document.getElementById("js-question-text");
 var answersListEl = document.getElementById("js-answers-list");
 
 // Declare variable state
-// What are the data that need to be kept track of?
-// Global state variables sometimes emerge while working on event handlers (i.e., it becomes clearer what needs to be tracked accross the application)
-// State variables:
-// "State describes the status of the entire program or and individual object. It could be text, a number, a boolean, or another data type"
-
-var correct = 0;
-var incorrect = 0;
-var timer = null;
-var timeLeft = 0;
-var currentQuestionIndex = 0
-var currentAnswer;
+var correctAnswer = 0;
+var incorrectAnswer = 0;
+var timer = 0;
+var timerCount = 0;
+var currentQuestionIndex = 0;
+var currentAnswer = [];
 
 // Declare variables: constants
-// What are the data the application needs that won't change?
-// e.g Math constants, pre-created content (maybe the questions and answers?)
-
 var questionList = [
   {
     questionText: " How can you detect the client's browser name?",
@@ -44,70 +32,163 @@ var questionList = [
     questionText:
       "How do you find the number with the highest value of x and y?",
     answers: {
-      a: "client.navName",
-      b: "navigator.appName",
-      c: "browser.name",
+      a: "Math.ceil(x ,y)",
+      b: "ceil(x, y)",
+      c: "Math.max(x, y)",
+    },
+    correctAnswer: "c",
+  },
+  {
+    questionText: "How does a WHILE loop start?",
+    answers: {
+      a: "while (i <= 10)",
+      b: "while i = 1 to 10",
+      c: "while (i <= 10; i++)",
+    },
+    correctAnswer: "a",
+  },
+  {
+    questionText: "How do you write 'Hello World' in an alert box?",
+    answers: {
+      a: "alertBox('Hello World');",
+      b: "msg('Hello World')",
+      c: "alert('Hello World')",
+    },
+    correctAnswer: "c",
+  },
+  {
+    questionText: "The external JavaScript file must contain the <script> tag.",
+    answers: {
+      a: "True",
+      b: "False",
     },
     correctAnswer: "b",
   },
+  {
+    questionText: "Where is the correct place to insert a JavaScript?",
+    answers: {
+      a: "The <body> section",
+      b: "Both the <head> and the <body> section are correct",
+      c: "The <head> section",
+    },
+    correctAnswer: "b",
+  },
+  {
+    questionText:
+      "What is the correct syntax for referring to an external script called 'xxx.js'?",
+    answers: {
+      a: "<script src='xxx.js'>",
+      b: "<script href='xxx.js'>",
+      c: "<script name='xxx.js'>",
+    },
+    correctAnswer: "a",
+  },
+  {
+    questionText: "What event occurs when the user clicks on an HTML element?",
+    answers: {
+      a: "onmouseover",
+      b: "onmouseclick ",
+      c: "onclick",
+    },
+    correctAnswer: "c",
+  },
 ];
 
+// The init function is called when the page loads 
+function init() {
+  getCorrectAnswer();
+  getIncorrectAnswer();
+}
+
 function renderQuizQuestion(questionObj) {
-    questionTextEl.textContent = questionObj.questionText;
-    renderQuestionAnswers(questionObj.answers);
+  questionTextEl.textContent = questionObj.questionText;
+  renderQuestionAnswers(questionObj.answers);
 }
 
 function renderQuestionAnswers(answerObj) {
-    for (const answerKey in answerObj) {
-        var answerButton = document.createElement("button");
-        answerButton.textContent = answerObj[answerKey];
-        answerButton.classList.add("js-answer-button");
-        answerButton.setAttribute("data-answer-key", answerKey);
-        var listItem = document.createElement("li");
-        listItem.appendChild(answerButton);
-        answersListEl.appendChild(listItem);
-    }
+  for (const answerKey in answerObj) {
+    var answerButton = document.createElement("button");
+    answerButton.textContent = answerObj[answerKey];
+    answerButton.classList.add("js-answer-button");
+    answerButton.setAttribute("data-answer-key", answerKey);
+    var listItem = document.createElement("li");
+    listItem.appendChild(answerButton);
+    answersListEl.appendChild(listItem);
+  }
 }
 
-var qDuration = 50;
-
-// Identify events
-// Based on the variables created in Step 2, create event handlers
-//... where [EVENT TYPE] is "click" or "change" or "keydown" etc
-// Identify the things that should happen in the click handlers
-// There is always a page load event. Usually have a function for anything that needs setting up at the beginning, before people interact with the page. Start the execution of this setup function at the bottom of the page
+var kStorageKey = "scores"
 
 // Event: Page load
 function init() {
   console.log("Game loading...");
+  // Retrieve data from persistance
+  var scores = JSON.parse(localStorage.getItem(kStorageKey));
+// Update state
+  if (scores) {
+    correctAnswer = scores.correctAnswer;
+    incorrectAnswer = scores.incorrectAnswer;
+  }
 }
 // Event: Click start
 function handleClickStart(ev) {
-    console.log("Game Started!");
+  console.log("Game Started!");
+  timerCount = 59
+  console.log("timer ticked!", timerCount);
+  startQuizButtonEl.disabled = true;
+  if (timer >= 0) {
     renderQuizQuestion(questionList[currentQuestionIndex]);
+    startTimer()
+  }
 }
 startQuizButtonEl.addEventListener("click", handleClickStart);
 
-
-// Event: Timer tick
-function handleTimerTick(ev) {
-  console.log("timer ticked!");
+function startTimer() {
+  // Sets timer
+  timer = setInterval(function() {
+    timerCount--;
+    timerElement.textContent = timerCount;
+    if (timerCount >= 0) {
+      // Tests if correctAnswer condition is met
+      if (correctAnswer && timerCount > 0) {
+        // Clears interval and stops timer
+        clearInterval(timer);
+      }
+    }
+    // Tests if time has run out
+    if (timerCount === 0) {
+      // Clears interval
+      clearInterval(timer);
+    }
+  }, 1000);
 }
 
 // Event: Answer Question
-
 function handleAnswerSelected(ev) {
-  console.log("Answer selected: ", ev.key);
+  console.log("Answer selected:", ev.click);
 }
-// document.addEventListener("keydown", handleKeyDown);
-
-// Event: Quiz ends
-function handleGameEnds() {}
-// Refactor
-// Identify tasks that can be broken into their own functions, outside the event handlers
-// Are there tasks that more than one event handlet share?
+answersListEl.addEventListener("click", handleAnswerSelected);
 
 
-// TO DO:
-// Add click event listeners to answer buttons. Does the data answer key attribute equal the correct answer key of it's respective object using current question index to get current object so current answer key is referenced?
-// The function for the click event will need to check the correct answer key against the key of the answer button.
+
+// // Event: Quiz ends
+// function handleGameEnds(didCorrect) { 
+//   clearInterval(timer);
+//   timer = null;
+// // Update state
+//   if (didCorrect) {
+//     correctAnswer++;
+//   } else {
+//     incorrectAnswer++;
+//   }
+//   show
+//   localStorage.setItem(kStorageKey, JSON.stringify({ correctAnswer: correctAnswer, incorrectAnswer: incorrectAnswer }))
+// }
+
+// function updateScoreboard() {
+//   // Update UI
+//   correctAnswerEl = correctAnswer
+//   incorrectAnswerEl = incorrectAnswer
+
+// }
+init();

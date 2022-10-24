@@ -12,32 +12,31 @@
 <body>
     <header>
         <h1></h1>
-        <h2>View Highscores</h2>
+        <div class="view-highscores"> View Highscores </div>
+        <div class="timer-count">Time: </div>
     </header>
     <main>
-        <section class="scoreboard"> 
+        <section class="scoreboard">
             <div class="scoreboard_score">
-                Correct answers: 
-                <span class="scoreboard_score_value scoreboard_score_value--correct"
-                ></span>
+                <span class="scoreboard_score_value scoreboard_score_value--correct"></span>
             </div>
             <div class="scoreboard_score">
-                Incorrect answers: 
-                <span class="scoreboard_score_value scoreboard_score_value--incorrect"
-                ></span></div>
+
+                <span class="scoreboard_score_value scoreboard_score_value--incorrect"></span>
+            </div>
         </section>
         <section class="quizboard">
-        <div class="quizboard_timer">Time: 50</div>
-        <div class="quizboard_result"></div>
-        <div class="quizboard_display">
-            <div id="js-question-text"></div>
-             <ul id="js-answers-list">
-              
-             </ul>
-        </div>
-    </section>
-    <section class="controls">
-        <button class="controls_start quiz">Start Quiz</section>
+            <div class="quizboard_result"></div>
+            <div class="quizboard_display">
+                <div id="js-question-text"></div>
+                <ul id="js-answers-list">
+
+                </ul>
+            </div>
+        </section>
+        <section class="controls">
+            <button class="controls_start quiz">Start Quiz</button>
+        </section>
     </main>
 
     <script src="./Assets/js/app.js"></script>

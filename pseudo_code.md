@@ -42,9 +42,9 @@ Questions
 4. #demo.innerHTML = "Hello World!";
 
 // What is the correct syntax for referring to an external script called "xxx.js"?
-1. <script src="xxx.js"> correct
-2. <script href="xxx.js">
-3. <script name="xxx.js">
+1. <script src='xxx.js'> correct
+2. <script href='xxx.js'>
+3. <script name='xxx.js'>
 
 
 // Is JavaScript case-sensitive?
