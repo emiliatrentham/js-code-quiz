@@ -26,7 +26,7 @@ var questionList = [
       b: "navigator.appName",
       c: "browser.name",
     },
-    correctAnswer: "b",
+    correctAnswer: "navigator.appName",
   },
   {
     questionText:
@@ -36,7 +36,7 @@ var questionList = [
       b: "ceil(x, y)",
       c: "Math.max(x, y)",
     },
-    correctAnswer: "c",
+    correctAnswer: "Math.max(x, y)",
   },
   {
     questionText: "How does a WHILE loop start?",
@@ -45,16 +45,16 @@ var questionList = [
       b: "while i = 1 to 10",
       c: "while (i <= 10; i++)",
     },
-    correctAnswer: "a",
+    correctAnswer: "while (i <= 10)",
   },
   {
     questionText: "How do you write 'Hello World' in an alert box?",
     answers: {
       a: "alertBox('Hello World');",
       b: "msg('Hello World')",
-      c: "alert('Hello World')",
+      c: 'alert("Hello World")',
     },
-    correctAnswer: "c",
+    correctAnswer: 'alert("Hello World")',
   },
   {
     questionText: "The external JavaScript file must contain the <script> tag.",
@@ -62,7 +62,7 @@ var questionList = [
       a: "True",
       b: "False",
     },
-    correctAnswer: "b",
+    correctAnswer: "False",
   },
   {
     questionText: "Where is the correct place to insert a JavaScript?",
@@ -71,17 +71,17 @@ var questionList = [
       b: "Both the <head> and the <body> section are correct",
       c: "The <head> section",
     },
-    correctAnswer: "b",
+    correctAnswer: "Both the <head> and the <body> section are correct",
   },
   {
     questionText:
       "What is the correct syntax for referring to an external script called 'xxx.js'?",
     answers: {
-      a: "<script src='xxx.js'>",
-      b: "<script href='xxx.js'>",
-      c: "<script name='xxx.js'>",
+      a: '<script src="xxx.js">',
+      b: '<script href="xxx.js">',
+      c: '<script name="xxx.js">',
     },
-    correctAnswer: "a",
+    correctAnswer: '<script src="xxx.js">',
   },
   {
     questionText: "What event occurs when the user clicks on an HTML element?",
@@ -90,11 +90,11 @@ var questionList = [
       b: "onmouseclick ",
       c: "onclick",
     },
-    correctAnswer: "c",
+    correctAnswer: "onclick",
   },
 ];
 
-// The init function is called when the page loads 
+// The init function is called when the page loads ?!
 function init() {
   getCorrectAnswer();
   getIncorrectAnswer();
@@ -103,9 +103,18 @@ function init() {
 function renderQuizQuestion(questionObj) {
   questionTextEl.textContent = questionObj.questionText;
   renderQuestionAnswers(questionObj.answers);
+  correctAnswer = questionObj.correctAnswer;
 }
 
 function renderQuestionAnswers(answerObj) {
+  let answerButtons = document.querySelectorAll("li");
+  console.log(answerButtons);
+  if (answerButtons.length > 0) {
+    for (var i = 0; i < answerButtons.length; i++) {
+      answerButtons[i].remove();
+    }
+  }
+
   for (const answerKey in answerObj) {
     var answerButton = document.createElement("button");
     answerButton.textContent = answerObj[answerKey];
@@ -117,14 +126,14 @@ function renderQuestionAnswers(answerObj) {
   }
 }
 
-var kStorageKey = "scores"
+var kStorageKey = "scores";
 
 // Event: Page load
 function init() {
   console.log("Game loading...");
   // Retrieve data from persistance
   var scores = JSON.parse(localStorage.getItem(kStorageKey));
-// Update state
+  // Update state
   if (scores) {
     correctAnswer = scores.correctAnswer;
     incorrectAnswer = scores.incorrectAnswer;
@@ -133,62 +142,68 @@ function init() {
 // Event: Click start
 function handleClickStart(ev) {
   console.log("Game Started!");
-  timerCount = 59
+  timerCount = 59;
   console.log("timer ticked!", timerCount);
-  startQuizButtonEl.disabled = true;
+  startQuizButtonEl.style.display = "none";
   if (timer >= 0) {
     renderQuizQuestion(questionList[currentQuestionIndex]);
-    startTimer()
+    startTimer();
   }
 }
 startQuizButtonEl.addEventListener("click", handleClickStart);
 
 function startTimer() {
   // Sets timer
-  timer = setInterval(function() {
+  timer = setInterval(function () {
     timerCount--;
     timerElement.textContent = timerCount;
-    if (timerCount >= 0) {
-      // Tests if correctAnswer condition is met
-      if (correctAnswer && timerCount > 0) {
-        // Clears interval and stops timer
-        clearInterval(timer);
-      }
-    }
-    // Tests if time has run out
-    if (timerCount === 0) {
-      // Clears interval
+    if (timerCount <= 0) {
       clearInterval(timer);
+      alert("Time is up!");
     }
   }, 1000);
 }
 
 // Event: Answer Question
 function handleAnswerSelected(ev) {
-  console.log("Answer selected:", ev.click);
+  console.log("Answer selected:", ev.target);
+  let text = ev.target.textContent;
+  console.log(text);
+
+  if (text === correctAnswer) {
+    alert("Correct!");
+  } else {
+    alert("Wrong!");
+    timerCount = timerCount - 5;
+  }
+  currentQuestionIndex++;
+  renderQuizQuestion(questionList[currentQuestionIndex]);
 }
 answersListEl.addEventListener("click", handleAnswerSelected);
 
+// Event: Quiz ends
+function handleGameEnds(didCorrect) {
+  clearInterval(timer);
+  timer = null;
+  // Update state
+  if (didCorrect) {
+    correctAnswer++;
+  } else {
+    incorrectAnswer++;
+  }
+  show;
+  localStorage.setItem(
+    kStorageKey,
+    JSON.stringify({
+      correctAnswer: correctAnswer,
+      incorrectAnswer: incorrectAnswer,
+    })
+  );
+}
 
-
-// // Event: Quiz ends
-// function handleGameEnds(didCorrect) { 
-//   clearInterval(timer);
-//   timer = null;
-// // Update state
-//   if (didCorrect) {
-//     correctAnswer++;
-//   } else {
-//     incorrectAnswer++;
-//   }
-//   show
-//   localStorage.setItem(kStorageKey, JSON.stringify({ correctAnswer: correctAnswer, incorrectAnswer: incorrectAnswer }))
-// }
-
-// function updateScoreboard() {
-//   // Update UI
-//   correctAnswerEl = correctAnswer
-//   incorrectAnswerEl = incorrectAnswer
-
-// }
+function updateScoreboard() {
+  // Update UI
+  correctAnswerEl = correctAnswer;
+  incorrectAnswerEl = incorrectAnswer;
+}
 init();
