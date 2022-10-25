@@ -2,13 +2,15 @@
 var correctEl = document.querySelector(".scoreboard_score_value--correct");
 var incorrectEl = document.querySelector(".scoreboard_score_value--incorrect");
 var timerElement = document.querySelector(".timer-count");
-var startQuizButtonEl = document.querySelector(".controls_start");
+var startQuizButtonEl = document.querySelector(".start-quiz");
+var greetingEl = document.querySelector(".greeting");
 var quizResultsEl = document.querySelector(".quizboard_result");
 var quizDisplayEl = document.querySelector(".quizboard_display");
-var controlsEl = document.querySelector(".controls");
 var questionTextEl = document.getElementById("js-question-text");
 var answersListEl = document.getElementById("js-answers-list");
-
+var resultsEl = document.querySelector(".results");
+var initialsEl = document.querySelector("#initials");
+var submitbuttonEl = document.querySelector("#initials-submit");
 // Declare variable state
 var correctAnswer = 0;
 var incorrectAnswer = 0;
@@ -94,7 +96,7 @@ var questionList = [
   },
 ];
 
-// The init function is called when the page loads 
+// The init function is called when the page loads
 function init() {
   getCorrectAnswer();
   getIncorrectAnswer();
@@ -145,6 +147,7 @@ function handleClickStart(ev) {
   timerCount = 59;
   console.log("timer ticked!", timerCount);
   startQuizButtonEl.style.display = "none";
+  greetingEl.style.display = "none";
   if (timer >= 0) {
     renderQuizQuestion(questionList[currentQuestionIndex]);
     startTimer();
@@ -169,41 +172,57 @@ function handleAnswerSelected(ev) {
   console.log("Answer selected:", ev.target);
   let text = ev.target.textContent;
   console.log(text);
+  currentQuestionIndex++;
 
   if (text === correctAnswer) {
     alert("Correct!");
+    correctAnswer++;
   } else {
     alert("Wrong!");
     timerCount = timerCount - 5;
+    incorrectAnswer++;
   }
-  currentQuestionIndex++;
-  renderQuizQuestion(questionList[currentQuestionIndex]);
+  console.log(currentQuestionIndex);
+  console.log(questionList.length);
+  if (timerCount <= 0 || currentQuestionIndex === questionList.length) {
+    handleGameEnds();
+  } else {
+    renderQuizQuestion(questionList[currentQuestionIndex]);
+  }
 }
 answersListEl.addEventListener("click", handleAnswerSelected);
 
-// Event: Quiz ends 
-function handleGameEnds(didCorrect) {
+// Event: Quiz ends
+function handleGameEnds() {
+  console.log("this!");
+  quizDisplayEl.style.display = "none";
+  resultsEl.style.display = "block";
   clearInterval(timer);
   timer = null;
-  // Update state
-  if (didCorrect) {
-    correctAnswer++;
-  } else {
-    incorrectAnswer++;
-  }
-  show;
-  localStorage.setItem(
-    kStorageKey,
-    JSON.stringify({
-      correctAnswer: correctAnswer,
-      incorrectAnswer: incorrectAnswer,
-    })
-  );
 }
 
-function updateScoreboard() {
-  // Update UI
-  correctAnswerEl = correctAnswer;
-  incorrectAnswerEl = incorrectAnswer;
+function handleSubmit() {
+  let initials = initialsEl.value.trim();
+  let highscores;
+  if (!highscores) {
+    highscores = [];
+  } else {
+    highscores = JSON.parse(localStorage.getItem("highscores"));
+  }
+  let newScore = {
+    correctAnswer: correctAnswer,
+    incorrectAnswer: incorrectAnswer,
+    initials: initials,
+  };
+  highscores.push(newScore);
+  localStorage.setItem("highscores", JSON.stringify(highscores));
 }
+submitButtonEl.addEventListener("click", handleSubmit);
+
+// function updateScoreboard() {
+//   // Update UI
+//   correctAnswerEl = correctAnswer;
+//   incorrectAnswerEl = incorrectAnswer;
+// }
+
 init();

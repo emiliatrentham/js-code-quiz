@@ -1,13 +1,6 @@
-/* 
-
-.hide {
-  display: none !important;  
-} */
-
 * {
   box-sizing: border-box;
 }
-
 
 .timer-count {
   float: right;
@@ -16,11 +9,10 @@
   font-size: large;
 }
 
-.controls_start {
-    text-align: center;
-    max-width: 200px;
-    min-width: 200px;
-   
+.start-quiz {
+  text-align: center;
+  max-width: 200px;
+  min-width: 200px;
 }
 
 button {
@@ -46,16 +38,16 @@ button {
 }
 
 .view-highscores {
-    margin-left: -60px;
-    margin-top: -20px;
-    float: left;
-    border: none;
-    height: 50px;
-    color: black;
-    font-size: large;
-    background: aliceblue;
-    text-decoration: underline;
-  }
+  margin-left: -60px;
+  margin-top: -20px;
+  float: left;
+  border: none;
+  height: 50px;
+  color: black;
+  font-size: large;
+  background: aliceblue;
+  text-decoration: underline;
+}
 
 header {
   /* display: flex;
@@ -76,7 +68,7 @@ body {
   background: aliceblue;
 }
 
-section {
+.quizboard {
   flex: 0 auto;
   padding: 8px;
   margin-top: 50px;
@@ -93,6 +85,15 @@ main {
   justify-content: flex-center;
 }
 
+.greeting {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin-left: 200px;
+  margin-right: 200px;
+}
 
 @media screen and (max-width: 1440px) {
   main {

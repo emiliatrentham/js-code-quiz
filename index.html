@@ -13,34 +13,36 @@
     <header>
         <button class="view-highscores"> View Highscores </button>
         <div class="timer-count">Time: 59 </div>
-
-
     </header>
     <main>
-        <section class="scoreboard">
-            <div class="scoreboard_score">
-                <span class="scoreboard_score_value scoreboard_score_value--correct"></span>
-            </div>
-            <div class="scoreboard_score">
-
-                <span class="scoreboard_score_value scoreboard_score_value--incorrect"></span>
-            </div>
+        <section class="greeting">
+            <h1> Coding Quiz Challenge </h1>
+            <p> Try to answer the following code-related questions within the time
+                limit. Keep in mind that incorrect answers will penalize your score/time
+                by five seconds!</p>
+            <button class="start-quiz">Start Quiz</button>
         </section>
         <section class="quizboard">
             <div class="quizboard_result"></div>
             <div class="quizboard_display">
                 <div id="js-question-text"></div>
                 <ul id="js-answers-list">
-
                 </ul>
             </div>
         </section>
-        <section class="controls">
-            <button class="controls_start quiz">Start Quiz</button>
+
+        <section class="results" style="display: none;">
+            <div class="user-stores-initials">
+                <h2> Record your final score </h2>
+                <p> Enter initials
+                    <input id="initials" type="text" />
+                    <button id="initials-submit">Submit</button>
+                </p>
+            </div>
         </section>
     </main>
 
-    <script src="./Assets/js/app.js"></script>
+    <script src=" ./Assets/js/app.js"></script>
 </body>
 
 </html>
