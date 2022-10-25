@@ -11,8 +11,12 @@
 
 <body>
     <header>
-        <div class="view-highscores"> View Highscores </div>
-        <div class="timer-count">Time: 59 </div>
+        <div class="temp">
+            <ul>
+                <a href="javascript:displayResults()"> High Scores </a>
+            </ul>
+        </div>
+        <div class="timer-count">Timer: 59 </div>
     </header>
     <main>
         <section class="greeting">
@@ -26,24 +30,32 @@
             <div class="quizboard_result"></div>
             <div class="quizboard_display">
                 <div id="js-question-text"></div>
-                <ul id="js-answers-list">
+                <ul id="js-answers-list" style="list-style: none;">
                 </ul>
             </div>
         </section>
-
+        <section class="correct-choice">
+            <p> Correct! </p>
+        </section>
+        <section class="wrong-choice">
+            <p> Wrong! </p>
+        </section>
         <section class="results" style="display: none;">
             <div class="user-stores-initials">
                 <h2> Record your final score </h2>
-                <p> Enter initials
-                    <input id="initials" type="text" />
-                    <button id="initials-submit">Submit</button>
-                </p>
+                <input id="initials" type="text" />
+                <p> Enter initials</p>
+                <button class="initials-submit">Submit Score</button>
             </div>
         </section>
         <section class="scores">
-            <ol class="show-scores"> 
-
+            <ol class="show-scores">
             </ol>
+            <div class="flex"><button class="clear">Clear High Scores</button>
+            <button class="new">Go Back</button></div>
+        </section>
+        <section class="refresh">
+            <p> Refresh the page to start a new quiz!</p>
         </section>
     </main>
 

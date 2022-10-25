@@ -1,13 +1,15 @@
 * {
   box-sizing: border-box;
   font-family: "Titillium Web";
+  font-size: large;
 }
 
 .timer-count {
   float: right;
   height: 50px;
   color: black;
-  font-size: large;
+  margin-top: -30px;
+  margin-right: 30px;
 }
 
 .start-quiz {
@@ -20,7 +22,7 @@ button {
   background: radial-gradient(
     circle,
     rgb(169, 245, 238) 0%,
-    rgba(42, 199, 183, 0.954) 100%
+    rgba(25, 177, 162, 0.954) 100%
   );
   border-radius: 8px;
   color: #13293d;
@@ -39,30 +41,50 @@ button {
 }
 
 button {
-  border-radius: 8px;
-  transition: all 0.5s ease-in-out;
-}
-button:hover,
-button:hover {
-  box-shadow: inset 0px 0px 8px rgb(59, 226, 238), 0 0 15px rgb(22, 211, 218);
+    border-radius: 8px;
+    transition: all 0.5s ease-in-out;
+  }
+  button:hover,
+  button:hover {
+    box-shadow: inset 0px 0px 8px rgb(59, 226, 238), 0 0 15px rgb(22, 211, 218);
+  }
+  
+
+.initials-submit {
+    display: inline-block;
+    text-align: center;
+    max-width: 200px;
+    min-width: 200px;
+  } 
+
+.flex {
+ display: flex;
 }
 
-.view-highscores {
-  float: left;
-  border: none;
-  height: 50px;
-  color: black;
-  font-size: large;
-  background: aliceblue;
-  text-decoration: underline;
-  cursor: pointer;
+.new, .clear {
+   text-align: center;
+   align-items: center;
+   margin-left: 5px;
+   margin-right: 5px;
+}
+
+.show-scores {
+  display: grid;  
 }
 
 header {
   padding: 40px;
   background: aliceblue;
   color: black;
-  border-bottom: 30px #879274;
+}
+
+header a,
+a:link,
+a:focus,
+a:active {
+  color: black;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 body {
@@ -78,37 +100,21 @@ main {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: flex-center;
-}
-
-.greeting {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
   text-align: center;
-  justify-content: center;
+  justify-content:space-around;
+  flex-direction: column;
   margin-left: 200px;
   margin-right: 200px;
 }
 
-.results {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    margin-left: 200px;
-    margin-right: 200px;
-  }
-
 @media screen and (max-width: 1200px) {
-  main {
+  main, .flex {
     flex-direction: column;
   }
 }
 
 @media screen and (max-width: 504px) {
-  main {
+  main, .flex {
     flex-direction: column;
   }
 }

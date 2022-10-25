@@ -10,17 +10,21 @@ var questionTextEl = document.getElementById("js-question-text");
 var answersListEl = document.getElementById("js-answers-list");
 var resultsEl = document.querySelector(".results");
 var initialsEl = document.querySelector("#initials");
-var submitButtonEl = document.querySelector("#initials-submit");
+var submitButtonEl = document.querySelector(".initials-submit");
 var scoresEl = document.querySelector(".scores");
 var showScores = document.querySelector(".show-scores");
+var correctChoiceEl = document.querySelector(".correct-choice");
+var wrongChoiceEl = document.querySelector(".wrong-choice");
+var clearButton = document.querySelector(".clear");
+var newQuizButton = document.querySelector(".new");
+var refreshEl = document.querySelector(".refresh");
 
 // Declare variable: state
-var correctAnswer = 0;
+var correctAnswerCount = 0;
 var incorrectAnswer = 0;
 var timer = 0;
 var timerCount = 0;
 var currentQuestionIndex = 0;
-var currentAnswer = [];
 
 // Declare variables: constants
 var questionList = [
@@ -138,11 +142,16 @@ var kStorageKey = "scores";
 // Event: Page load
 function init() {
   console.log("Game loading...");
+  correctChoiceEl.style.display = "none";
+  wrongChoiceEl.style.display = "none";
+  clearButton.style.display = "none";
+  newQuizButton.style.display = "none";
+  refreshEl.style.display = "none";
   // Retrieve data from persistance
   var scores = JSON.parse(localStorage.getItem(kStorageKey));
   // Update state
   if (scores) {
-    correctAnswer = scores.correctAnswer;
+    correctAnswerCount = scores.correctAnswerCount;
     incorrectAnswer = scores.incorrectAnswer;
   }
 }
@@ -153,6 +162,8 @@ function handleClickStart(ev) {
   console.log("timer ticked!", timerCount);
   startQuizButtonEl.style.display = "none";
   greetingEl.style.display = "none";
+  correctChoiceEl.style.display = "none";
+  wrongChoiceEl.style.display = "none";
   if (timer >= 0) {
     renderQuizQuestion(questionList[currentQuestionIndex]);
     startTimer();
@@ -167,7 +178,7 @@ function startTimer() {
     timerElement.textContent = timerCount;
     if (timerCount <= 0) {
       clearInterval(timer);
-      alert("Time is up!");
+      handleGameEnds();
     }
   }, 1000);
 }
@@ -179,11 +190,13 @@ function handleAnswerSelected(ev) {
   currentQuestionIndex++;
 
   if (text === correctAnswer) {
-    alert("Correct!");
-    correctAnswer++;
+    correctChoiceEl.style.display = "block";
+    wrongChoiceEl.style.display = "none";
+    correctAnswerCount++;
   } else {
-    alert("Wrong!");
-    timerCount = timerCount - 5;
+    wrongChoiceEl.style.display = "block";
+    correctChoiceEl.style.display = "none"
+    timerCount = timerCount - 10;
     incorrectAnswer++;
   }
 
@@ -206,32 +219,60 @@ function handleGameEnds() {
 function handleSubmit(ev) {
   let initials = initialsEl.value.trim();
   let highscores = JSON.parse(window.localStorage.getItem("highscores"));
+  
   if (!highscores) {
     highscores = [];
   }
-
+  correctChoiceEl.style.display = "none";
+  wrongChoiceEl.style.display = "none";
   let newScore = {
-    correctAnswer: correctAnswer,
+    correctAnswerCount: correctAnswerCount,
     incorrectAnswer: incorrectAnswer,
     initials: initials,
   };
   highscores.push(newScore);
   localStorage.setItem("highscores", JSON.stringify(highscores));
   displayResults();
+ 
 }
 submitButtonEl.addEventListener("click", handleSubmit);
 
 // Update UI
 function displayResults() {
+  correctChoiceEl.style.display = "none";
+  wrongChoiceEl.style.display = "none";
+  showScores.textContent = "";
   resultsEl.style.display = "none";
   scoresEl.style.display = "block";
+  clearButton.style.display = "block";
+  newQuizButton.style.display = "block";
+  startQuizButtonEl.style.display = "none";
+  greetingEl.style.display = "none";
+
   let highscores = JSON.parse(window.localStorage.getItem("highscores"));
   for (let i = 0; i < highscores.length; i++) {
     let liTag = document.createElement("li");
-    liTag.textContent =
-      highscores[i].initials + "  -  " + highscores[i].correctAnswer;
+    liTag.textContent = highscores[i].initials + "  -  " + highscores[i].correctAnswerCount;
     showScores.appendChild(liTag);
   }
 }
 
+function resetHighScores() {
+  localStorage.clear();
+  showScores.textContent = "";
+  greetingEl.style.display = "none";
+}
+clearButton.addEventListener("click", resetHighScores);
+
+function startQuizButton() {
+  showScores.style.display = "none";
+  clearButton.style.display = "none";
+  newQuizButton.style.display = "none";
+  refreshEl.style.display = "block";
+}
+newQuizButton.addEventListener("click", startQuizButton);
+
 init();
+
+
+
