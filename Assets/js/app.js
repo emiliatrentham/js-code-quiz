@@ -160,7 +160,7 @@ function handleClickStart(ev) {
   console.log("Game Started!");
   timerCount = 59;
   console.log("timer ticked!", timerCount);
-  startQuizButtonEl.style.display = "none";
+  // startQuizButtonEl.style.display = "none";
   greetingEl.style.display = "none";
   correctChoiceEl.style.display = "none";
   wrongChoiceEl.style.display = "none";
@@ -272,6 +272,8 @@ function startQuizButton() {
   clearButton.style.display = "none";
   newQuizButton.style.display = "none";
   refreshEl.style.display = "block";
+  // startQuizButtonEl.style.display = "block";
+  // greetingEl.style.display = "block";
 }
 newQuizButton.addEventListener("click", startQuizButton);
 
