@@ -32,7 +32,7 @@ button {
   line-height: 16px;
   max-width: 300px;
   min-width: 300px;
-  padding: 20px 52px;
+  padding: 20px;
   text-align: start;
   transition-duration: 0.15s;
   transition-property: background-color;
@@ -41,35 +41,35 @@ button {
 }
 
 button {
-    border-radius: 8px;
-    transition: all 0.5s ease-in-out;
-  }
-  button:hover,
-  button:hover {
-    box-shadow: inset 0px 0px 8px rgb(59, 226, 238), 0 0 15px rgb(22, 211, 218);
-  }
-  
-
-.initials-submit {
-    display: inline-block;
-    text-align: center;
-    max-width: 200px;
-    min-width: 200px;
-  } 
-
-.flex {
- display: flex;
+  border-radius: 8px;
+  transition: all 0.5s ease-in-out;
+}
+button:hover,
+button:hover {
+  box-shadow: inset 0px 0px 8px rgb(59, 226, 238), 0 0 15px rgb(22, 211, 218);
 }
 
-.new, .clear {
-   text-align: center;
-   align-items: center;
-   margin-left: 5px;
-   margin-right: 5px;
+.initials-submit {
+  display: inline-block;
+  text-align: center;
+  max-width: 200px;
+  min-width: 200px;
+}
+
+.flex {
+  display: flex;
+}
+
+.new,
+.clear {
+  text-align: center;
+  align-items: center;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .show-scores {
-  display: grid;  
+  display: grid;
 }
 
 header {
@@ -101,20 +101,28 @@ main {
   flex-wrap: wrap;
   align-items: center;
   text-align: center;
-  justify-content:space-around;
+  justify-content: space-around;
   flex-direction: column;
-  margin-left: 200px;
-  margin-right: 200px;
 }
 
 @media screen and (max-width: 1200px) {
-  main, .flex {
+  main,
+  .flex {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  main,
+  .flex {
     flex-direction: column;
   }
 }
 
 @media screen and (max-width: 504px) {
-  main, .flex {
+  main,
+  .flex {
     flex-direction: column;
+    align-content: start;
   }
 }

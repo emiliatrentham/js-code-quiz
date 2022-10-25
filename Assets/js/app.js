@@ -210,6 +210,8 @@ answersListEl.addEventListener("click", handleAnswerSelected);
 
 // Event: Quiz ends
 function handleGameEnds() {
+  correctChoiceEl.style.display = "none";
+  wrongChoiceEl.style.display = "none";
   quizDisplayEl.style.display = "none";
   resultsEl.style.display = "block";
   clearInterval(timer);
