@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  font-family: "Titillium Web";
 }
 
 .timer-count {
@@ -18,8 +19,8 @@
 button {
   background: radial-gradient(
     circle,
-    rgb(196, 115, 246) 0%,
-    rgba(159, 32, 178, 0.954) 100%
+    rgb(169, 245, 238) 0%,
+    rgba(42, 199, 183, 0.954) 100%
   );
   border-radius: 8px;
   color: #13293d;
@@ -37,9 +38,16 @@ button {
   margin-top: 0.6em;
 }
 
+button {
+  border-radius: 8px;
+  transition: all 0.5s ease-in-out;
+}
+button:hover,
+button:hover {
+  box-shadow: inset 0px 0px 8px rgb(59, 226, 238), 0 0 15px rgb(22, 211, 218);
+}
+
 .view-highscores {
-  margin-left: -60px;
-  margin-top: -20px;
   float: left;
   border: none;
   height: 50px;
@@ -47,11 +55,10 @@ button {
   font-size: large;
   background: aliceblue;
   text-decoration: underline;
+  cursor: pointer;
 }
 
 header {
-  /* display: flex;
-    justify-content: space-between; */
   padding: 40px;
   background: aliceblue;
   color: black;
@@ -59,23 +66,12 @@ header {
 }
 
 body {
-  font-family: Arial;
   font-size: large;
   margin: 0;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   background: aliceblue;
-}
-
-.quizboard {
-  flex: 0 auto;
-  padding: 8px;
-  margin-top: 50px;
-  background-color: aliceblue;
-  border-radius: 8px;
-  align-items: center;
-  justify-content: flex-center;
 }
 
 main {
@@ -95,7 +91,17 @@ main {
   margin-right: 200px;
 }
 
-@media screen and (max-width: 1440px) {
+.results {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-left: 200px;
+    margin-right: 200px;
+  }
+
+@media screen and (max-width: 1200px) {
   main {
     flex-direction: column;
   }
