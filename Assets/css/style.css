@@ -122,7 +122,10 @@ main {
 @media screen and (max-width: 504px) {
   main,
   .flex {
+    display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
     align-content: start;
+    align-self: center;
   }
 }

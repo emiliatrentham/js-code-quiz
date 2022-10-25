@@ -172,7 +172,7 @@ function handleClickStart(ev) {
 startQuizButtonEl.addEventListener("click", handleClickStart);
 
 function startTimer() {
-// Sets timer
+  // Sets timer
   timer = setInterval(function () {
     timerCount--;
     timerElement.textContent = timerCount;
@@ -192,10 +192,16 @@ function handleAnswerSelected(ev) {
   if (text === correctAnswer) {
     correctChoiceEl.style.display = "block";
     wrongChoiceEl.style.display = "none";
+    setTimeout(function () {
+      correctChoiceEl.style.display = "none";
+    }, 1000);
     correctAnswerCount++;
   } else {
     wrongChoiceEl.style.display = "block";
-    correctChoiceEl.style.display = "none"
+    correctChoiceEl.style.display = "none";
+    setTimeout(function () {
+      wrongChoiceEl.style.display = "none";
+    }, 1000);
     timerCount = timerCount - 10;
     incorrectAnswer++;
   }
@@ -210,8 +216,6 @@ answersListEl.addEventListener("click", handleAnswerSelected);
 
 // Event: Quiz ends
 function handleGameEnds() {
-  correctChoiceEl.style.display = "none";
-  wrongChoiceEl.style.display = "none";
   quizDisplayEl.style.display = "none";
   resultsEl.style.display = "block";
   clearInterval(timer);
@@ -221,12 +225,11 @@ function handleGameEnds() {
 function handleSubmit(ev) {
   let initials = initialsEl.value.trim();
   let highscores = JSON.parse(window.localStorage.getItem("highscores"));
-  
+
   if (!highscores) {
     highscores = [];
   }
-  correctChoiceEl.style.display = "none";
-  wrongChoiceEl.style.display = "none";
+
   let newScore = {
     correctAnswerCount: correctAnswerCount,
     incorrectAnswer: incorrectAnswer,
@@ -235,14 +238,11 @@ function handleSubmit(ev) {
   highscores.push(newScore);
   localStorage.setItem("highscores", JSON.stringify(highscores));
   displayResults();
- 
 }
 submitButtonEl.addEventListener("click", handleSubmit);
 
 // Update UI
 function displayResults() {
-  correctChoiceEl.style.display = "none";
-  wrongChoiceEl.style.display = "none";
   showScores.textContent = "";
   resultsEl.style.display = "none";
   scoresEl.style.display = "block";
@@ -254,7 +254,8 @@ function displayResults() {
   let highscores = JSON.parse(window.localStorage.getItem("highscores"));
   for (let i = 0; i < highscores.length; i++) {
     let liTag = document.createElement("li");
-    liTag.textContent = highscores[i].initials + "  -  " + highscores[i].correctAnswerCount;
+    liTag.textContent =
+      highscores[i].initials + "  -  " + highscores[i].correctAnswerCount;
     showScores.appendChild(liTag);
   }
 }
@@ -275,6 +276,3 @@ function startQuizButton() {
 newQuizButton.addEventListener("click", startQuizButton);
 
 init();
-
-
-
