@@ -250,6 +250,7 @@ function displayResults() {
   newQuizButton.style.display = "block";
   startQuizButtonEl.style.display = "none";
   greetingEl.style.display = "none";
+  refreshEl.style.display = "none";
 
   let highscores = JSON.parse(window.localStorage.getItem("highscores"));
   for (let i = 0; i < highscores.length; i++) {
@@ -272,8 +273,6 @@ function startQuizButton() {
   clearButton.style.display = "none";
   newQuizButton.style.display = "none";
   refreshEl.style.display = "block";
-  // startQuizButtonEl.style.display = "block";
-  // greetingEl.style.display = "block";
 }
 newQuizButton.addEventListener("click", startQuizButton);
 
