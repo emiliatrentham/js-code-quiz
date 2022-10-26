@@ -160,7 +160,6 @@ function handleClickStart(ev) {
   console.log("Game Started!");
   timerCount = 59;
   console.log("timer ticked!", timerCount);
-  // startQuizButtonEl.style.display = "none";
   greetingEl.style.display = "none";
   correctChoiceEl.style.display = "none";
   wrongChoiceEl.style.display = "none";

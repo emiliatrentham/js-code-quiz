@@ -1,9 +1,11 @@
+/* Universal selector*/
 * {
   box-sizing: border-box;
   font-family: "Titillium Web";
   font-size: large;
 }
 
+/* Sets timer display */
 .timer-count {
   float: right;
   height: 50px;
@@ -12,15 +14,19 @@
   margin-right: px;
 }
 
+/* Sets start quiz button display */
 .start-quiz {
   text-align: center;
   max-width: 200px;
   min-width: 200px;
 }
 
+/* Sets High Scores anchor display */
 header a {
     margin-left: -45px;
 }
+
+/* Sets project buttons display */
 button {
   background: radial-gradient(
     circle,
@@ -43,6 +49,7 @@ button {
   margin-top: 0.6em;
 }
 
+/* Creates button glow on hover */
 button {
   border-radius: 8px;
   transition: all 0.5s ease-in-out;
@@ -52,6 +59,7 @@ button:hover {
   box-shadow: inset 0px 0px 8px rgb(59, 226, 238), 0 0 15px rgb(22, 211, 218);
 }
 
+/* Sets submit scores button display */
 .initials-submit {
   display: inline-block;
   text-align: center;
@@ -59,6 +67,7 @@ button:hover {
   min-width: 200px;
 }
 
+/* Sets "Go Back" and "Reset High Scores" button display (row) */
 .flex {
   display: flex;
 }
@@ -71,10 +80,7 @@ button:hover {
   margin-right: 5px;
 }
 
-.show-scores {
-  display: grid;
-}
-
+/* Sets header display */
 header {
   padding: 40px;
   background: aliceblue;
@@ -90,8 +96,8 @@ a:active {
   cursor: pointer;
 }
 
+/* Sets body and main display  */
 body {
-  font-size: large;
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -108,6 +114,7 @@ main {
   flex-direction: column;
 }
 
+/* Creates responsive display on various screen sizes */
 @media screen and (max-width: 1200px) {
   main,
   .flex {
